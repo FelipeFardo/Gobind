@@ -59,7 +59,7 @@ func main() {
 	api.BindRoutes()
 
 	fmt.Println("Starting Server on port :3080")
-	if err := http.ListenAndServe("localhost:3080", api.Router); err != nil {
+	if err := http.ListenAndServe(":3080", api.Router); err != nil {
 		panic(err)
 	}
 }

@@ -13,7 +13,7 @@ func (api *Api) BindRoutes() {
 
 	csrfMiddleware := csrf.Protect(
 		[]byte(os.Getenv("GOBID_CSRF_KEY")),
-		csrf.Secure(false), // DEV ONLY
+		csrf.Secure(os.Getenv("GOBID_ENV") == "production"), // DEV ONLY
 	)
 
 	api.Router.Use(csrfMiddleware)
