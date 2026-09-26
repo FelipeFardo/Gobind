@@ -56,6 +56,7 @@ func main() {
 		Router:         chi.NewMux(),
 		ProductService: services.NewProductService(pool),
 		UserService:    services.NewUserService(pool),
+		BidsService:    services.BidsService{},
 		Sessions:       s,
 		WsUpgrader: websocket.Upgrader{
 			CheckOrigin: func(r *http.Request) bool {

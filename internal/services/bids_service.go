@@ -22,7 +22,7 @@ func NewBidsService(pool *pgxpool.Pool) BidsService {
 	}
 }
 
-var errBidIsTooLow = errors.New("the bid value is too low")
+var ErrBidIsTooLow = errors.New("the bid value is too low")
 
 func (bs *BidsService) Placebid(ctx context.Context, product_id, bidder_id uuid.UUID, amount int32) (pgstore.Bid, error) {
 	// amount > previous_amount
@@ -43,7 +43,7 @@ func (bs *BidsService) Placebid(ctx context.Context, product_id, bidder_id uuid.
 	}
 
 	if product.BasepriceInCents >= amount || highestBid.BidAmountInCents >= amount {
-		return pgstore.Bid{}, errBidIsTooLow
+		return pgstore.Bid{}, ErrBidIsTooLow
 	}
 
 	highestBid, err = bs.queries.CreatedBid(ctx, pgstore.CreatedBidParams{
