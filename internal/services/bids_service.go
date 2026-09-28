@@ -27,7 +27,6 @@ var ErrBidIsTooLow = errors.New("the bid value is too low")
 func (bs *BidsService) Placebid(ctx context.Context, product_id, bidder_id uuid.UUID, amount int32) (pgstore.Bid, error) {
 	// amount > previous_amount
 	// amount > baseprice
-
 	product, err := bs.queries.GetProductById(ctx, product_id)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
@@ -41,7 +40,6 @@ func (bs *BidsService) Placebid(ctx context.Context, product_id, bidder_id uuid.
 			return pgstore.Bid{}, err
 		}
 	}
-
 	if product.BasepriceInCents >= amount || highestBid.BidAmountInCents >= amount {
 		return pgstore.Bid{}, ErrBidIsTooLow
 	}
